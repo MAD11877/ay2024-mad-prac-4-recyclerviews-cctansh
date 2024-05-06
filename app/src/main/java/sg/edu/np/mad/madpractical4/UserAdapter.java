@@ -36,9 +36,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        String tempName = users.get(position).name;
+        String tempName = users.get(position).getName();
         holder.name.setText(tempName);
-        holder.desc.setText(users.get(position).description);
+        holder.desc.setText(users.get(position).getDescription());
         int last = Integer.parseInt(tempName.substring(tempName.length() - 1));
         if (last == 7){
             holder.bigImage.setVisibility(View.VISIBLE);
@@ -50,14 +50,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle("Profile");
-                builder.setMessage(users.get(position).name);
+                builder.setMessage(users.get(position).getName());
                 builder.setCancelable(false);
                 builder.setPositiveButton("View", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         Intent intent = new Intent(activity, MainActivity.class);
-                        intent.putExtra("name", users.get(position).name);
-                        intent.putExtra("desc", users.get(position).description);
-                        intent.putExtra("follow", users.get(position).followed);
+                        intent.putExtra("name", users.get(position).getName());
+                        intent.putExtra("desc", users.get(position).getDescription());
+                        intent.putExtra("follow", users.get(position).getFollowed());
                         activity.startActivity(intent);
                     }
                 });
