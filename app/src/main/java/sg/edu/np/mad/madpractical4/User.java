@@ -1,5 +1,7 @@
 package sg.edu.np.mad.madpractical4;
 
+import java.io.Serializable;
+
 public class User {
     public String name;
     public String description;

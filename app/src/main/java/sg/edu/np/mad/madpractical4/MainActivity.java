@@ -27,31 +27,35 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        User user = new User("MAD", "MAD Developer",1,false);
-
         Intent intent = getIntent();
-        int random = intent.getIntExtra("random", 0);
+        String name = intent.getStringExtra("name");
+        String desc = intent.getStringExtra("desc");
+        final boolean[] follow = {intent.getBooleanExtra("follow", false)};
 
         TextView tvName = findViewById(R.id.tvName);
         TextView tvDescription = findViewById(R.id.tvDescription);
         TextView btnFollow = findViewById(R.id.btnFollow);
         TextView btnMessage = findViewById(R.id.btnMessage);
 
-        tvName.setText(user.name + " " + random);
-        tvDescription.setText(user.description);
-        btnFollow.setText("Follow");
+        tvName.setText(name);
+        tvDescription.setText(desc);
+        if (follow[0]) {
+            btnFollow.setText("Unfollow");
+        } else {
+            btnFollow.setText("Follow");
+        }
 
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!user.followed) {
+                if (!follow[0]) {
                     btnFollow.setText("Unfollow");
-                    user.followed = true;
+                    follow[0] = true;
                     Toast.makeText(MainActivity.this, "Followed", Toast.LENGTH_SHORT).show();
                     Log.i("btnFollow", "onClick: Followed");
                 } else {
                     btnFollow.setText("Follow");
-                    user.followed = false;
+                    follow[0] = false;
                     Toast.makeText(MainActivity.this, "Unfollowed", Toast.LENGTH_SHORT).show();
                     Log.i("btnFollow", "onClick: Unfollowed");
                 }

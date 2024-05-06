@@ -1,23 +1,21 @@
 package sg.edu.np.mad.madpractical4;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
@@ -33,6 +31,27 @@ public class ListActivity extends AppCompatActivity {
             return insets;
         });
 
+        ArrayList<User> userList = new ArrayList<User>();
+
+        for (int i = 0; i < 20; i++) {
+            String name = "Name" + new Random().nextInt(1000000);
+            String desc = "Description" + new Random().nextInt(1000000);
+            boolean follow = new Random().nextBoolean();
+            User temp = new User(name,desc,i,follow);
+            userList.add(temp);
+        }
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        UserAdapter mAdapter = new UserAdapter(userList, this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+
+
+        /*
         ImageView icon = findViewById(R.id.icon);
 
         icon.setOnClickListener(new View.OnClickListener() {
@@ -62,5 +81,7 @@ public class ListActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+        */
     }
+
 }
